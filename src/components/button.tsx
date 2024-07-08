@@ -1,14 +1,17 @@
 import {View, Pressable, Text, StyleSheet} from "react-native";
 
-export default function Button() {
-    const handlePress = async () => {
-        alert("hola")
-    }
+interface Props {
+    handlePress: () => void;
+    buttonLabel: string;
+}
+
+export default function Button(props: Props) {
+    const {handlePress, buttonLabel} = props
 
     return (
         <View style={styles.buttonContainer}>
             <Pressable style={styles.button} onPress={handlePress}>
-                <Text style={styles.buttonLabel}>Test</Text>
+                <Text style={styles.buttonLabel}>{buttonLabel}</Text>
             </Pressable>
         </View>
     )
@@ -18,13 +21,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: 320,
         height: 68,
-        marginHorizontal: 20,
+        marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 3,
-        backgroundColor: "#E8C5E5",
+        backgroundColor: "#D2E9E9",
         borderWidth: 4,
-        borderColor: "#F19ED2",
+        borderColor: "#C4DFDF",
         borderRadius: 18
     },
     button: {
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     buttonLabel: {
-        color: '#F7F9F2',
-        fontSize: 16,
+        color: 'black',
+        fontSize: 30,
     },
 })
