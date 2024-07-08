@@ -1,15 +1,18 @@
 export interface Country {
-    name: {
-        common: string;
-        official: string;
-    };
     capital: string;
     continents: string;
-    region: string;
-    subregion: string;
     flags: {
         png: string;
         alt: string;
     };
+    idd: {
+        root: string;
+    }
+    name: {
+        common: string;
+        official: string;
+    };
     population: number;
+    region: string;
+    subregion: string;
 }
