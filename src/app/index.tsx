@@ -1,0 +1,22 @@
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, Text, View} from 'react-native';
+import Button from "../components/button";
+
+export default function Homepage() {
+    return (
+        <View style={styles.container}>
+            <Text>Open up App.tsx to start working on your app!</Text>
+            <Button/>
+            <StatusBar style="auto"/>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#91ddcf',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
