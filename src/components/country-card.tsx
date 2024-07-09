@@ -25,7 +25,7 @@ export default CountryCard;
 const style = StyleSheet.create({
     countryContainer: {
         width: 160,
-        height: 150,
+        height: 160,
         marginHorizontal: 5,
         marginVertical: 10,
         flex: 1,
@@ -39,6 +39,7 @@ const style = StyleSheet.create({
     countryLabel: {
         fontSize: 20,
         alignSelf: "center",
+        padding: 1,
     },
     countryImage: {
         width: "100%",
