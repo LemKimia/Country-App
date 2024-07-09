@@ -15,7 +15,7 @@ const CountryCard = (props: Props) => {
                 alt={country.flags.alt}
                 style={style.countryImage}
             />
-            <Text style={style.countryLabel}>{country.name.common}</Text>
+            <Text numberOfLines={2} style={style.countryLabel}>{country.name.common}</Text>
         </View>
     )
 }
