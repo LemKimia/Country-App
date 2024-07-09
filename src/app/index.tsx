@@ -32,8 +32,8 @@ export default function Homepage() {
 
     const handlePress = async () => {
         if (keywordForName || keywordForContinent) {
-            setKeywordForName((prevState) => "")
-            setKeywordForContinent((prevState) => "")
+            setKeywordForName("")
+            setKeywordForContinent("")
         } else {
             setShowList((prevState) => !prevState)
         }
