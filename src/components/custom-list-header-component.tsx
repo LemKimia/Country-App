@@ -12,14 +12,25 @@ interface Props {
 const CustomListHeaderComponent = (props: Props) => {
     const {keywordForName, keywordForContinent, setKeywordForName, setKeywordForContinent} = props
     const countryContinentOptions = [
-        'africa',
-        'antarctica',
+        'Africa',
+        'Antarctica',
         'asia',
-        'europe',
-        'north america',
-        'oceania',
-        'south america'
+        'Europe',
+        'n orth america',
+        'Oceania',
+        'South America'
     ]
+
+    const selectedItemToUppercase = (selectedItem: string) => {
+        if (!selectedItem) {
+            return selectedItem
+        }
+
+        const firstAlphabetInPosition = selectedItem.charAt(0).toUpperCase()
+        const restOfAlphabet = selectedItem.slice(1).toLowerCase()
+
+        return firstAlphabetInPosition + restOfAlphabet
+    }
 
     return (
         <View style={style.container}>
@@ -39,24 +50,18 @@ const CustomListHeaderComponent = (props: Props) => {
                     renderButton={(selectedItem, isOpen) => {
                         return (
                             <View>
-                                <Text>{selectedItem || 'Search by Continent'}</Text>
+                                <Text
+                                    style={selectedItem ? {opacity: 1} : style.selectedItem}>{selectedItemToUppercase(selectedItem) || 'Search by Continent'}</Text>
                             </View>
                         )
                     }}
                     renderItem={(item, index, isSelected) => {
                         return (
-                            <View>
-                                <Text>{item}</Text>
+                            <View style={style.categoryContainer}>
+                                <Text style={style.categoryLabel}>{item}</Text>
                             </View>
                         )
                     }}
-                    // search
-                    // searchInputTxtColor={'#151E26'}
-                    // searchPlaceHolder={'Search here'}
-                    // searchPlaceHolderColor={'#72808D'}
-                    // renderSearchInputLeftIcon={() => {
-                    //     return <FontAwesome name={'search'} color={'#72808D'} size={18}/>;
-                    // }}
                 />
             </View>
         </View>
@@ -78,11 +83,25 @@ const style = StyleSheet.create({
         backgroundColor: "#D2E9E9",
     },
     dropdownContainer: {
+        justifyContent: "center",
         width: 150,
         padding: 2,
         borderWidth: 2,
         borderRadius: 8,
         borderColor: "#C4DFDF",
         backgroundColor: "#D2E9E9",
+    },
+    categoryContainer: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    categoryLabel: {
+        fontWeight: "normal",
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 3,
+    },
+    selectedItem: {
+        opacity: 0.4
     }
 })
