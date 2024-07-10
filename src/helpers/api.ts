@@ -13,8 +13,8 @@ export const getCountryData = async () => {
     }
 };
 
-export const getCountryDetail = async (name: string) => {
-    const url = `https://restcountries.com/v3.1/name/${name}`
+export const getCountryDetail = async (country: string | string[]) => {
+    const url = `https://restcountries.com/v3.1/name/${country}`
 
     try {
         const response = await axios.get(url)
