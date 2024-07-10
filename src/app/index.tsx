@@ -44,7 +44,7 @@ export default function Homepage() {
             country.continents.toString().toLocaleLowerCase().includes(keywordForContinent.toLocaleLowerCase());
         const matchesName = keywordForName === "" ||
             country.name.common.toString().toLocaleLowerCase().includes(keywordForName.toLocaleLowerCase())
-        return  matchesContinent && matchesName
+        return matchesContinent && matchesName
     })
 
     return (
