@@ -26,6 +26,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "coba-coba-scheme"
+    "scheme": "coba-coba-scheme",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c8206d26-9a33-4316-b543-4ff6cb704fd1"
+      }
+    }
   }
 }
