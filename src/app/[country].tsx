@@ -12,27 +12,30 @@ const CountryDetail = () => {
 
     useEffect(() => {
         const getCountry = async () => {
-            if (country !== undefined) {
-                try {
-                    const response = await getCountryDetail(country)
+            try {
+                const response = await getCountryDetail(country)
 
-                    setCountryDetail(response)
-                } catch (error: any) {
-                    alert(error.message)
-                }
+                setCountryDetail(response)
+            } catch (error: any) {
+                alert(error.message)
             }
         }
         getCountry()
     }, [])
 
     const handlePress = () => {
-       alert(`You are in ${country}`)
+       alert(`You are in ${countryDetail[0].capital}`)
     }
 
     return (
         <View style={styles.container}>
+            <Image
+                src={countryDetail[0].flags.png}
+                alt={countryDetail[0].flags.alt}
+                style={styles.countryImage}
+            />
             <Pressable onPress={handlePress}>
-                <Text>You are in {country}</Text>
+                <Text>You are in {countryDetail[0].name.common}</Text>
             </Pressable>
         </View>
     )
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E3F4F4',
     },
     countryImage: {
-        width: "100%",
+        width: 200,
         height: 100
     },
 })

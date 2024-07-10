@@ -11,7 +11,7 @@ const CountryCard = (props: Props) => {
     const params = country.name.common
 
     const handlePress = () => {
-        alert(`You went to ${params}`)
+        alert(`You goes to ${params}`)
     }
 
     return (

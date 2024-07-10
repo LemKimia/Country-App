@@ -13,7 +13,7 @@ export const getCountryData = async () => {
     }
 };
 
-export const getCountryDetail = async (country: string | string[]) => {
+export const getCountryDetail = async (country: string | string[] | undefined) => {
     const url = `https://restcountries.com/v3.1/name/${country}`
 
     try {
