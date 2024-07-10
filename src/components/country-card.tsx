@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import {Country} from "../helpers/api-type";
 
 interface Props {
@@ -8,13 +8,20 @@ interface Props {
 const CountryCard = (props: Props) => {
     const {country} = props;
 
+    const handlePress = () => {
+        alert(`This is ${country.name.common}`)
+    }
+
     return (
         <View style={style.countryContainer}>
-            <Image
-                src={country.flags.png}
-                alt={country.flags.alt}
-                style={style.countryImage}
-            />
+            <Pressable onPress={handlePress} style={style.countryImageContainer}>
+                <Image
+                    src={country.flags.png}
+                    alt={country.flags.alt}
+                    style={style.countryImage}
+
+                />
+            </Pressable>
             <Text numberOfLines={2} style={style.countryLabel}>{country.name.common}</Text>
         </View>
     )
@@ -40,6 +47,10 @@ const style = StyleSheet.create({
         fontSize: 20,
         alignSelf: "center",
         padding: 1,
+    },
+    countryImageContainer: {
+        width: "100%",
+        height: 100,
     },
     countryImage: {
         width: "100%",
