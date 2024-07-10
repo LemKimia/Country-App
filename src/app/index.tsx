@@ -42,9 +42,9 @@ export default function Homepage() {
     const filteredCountryData = data.filter(country => {
         const matchesContinent = keywordForContinent === "" ||
             country.continents.toString().toLocaleLowerCase().includes(keywordForContinent.toLocaleLowerCase());
-        const matchesName = keywordForContinent === "" ||
+        const matchesName = keywordForName === "" ||
             country.name.common.toString().toLocaleLowerCase().includes(keywordForName.toLocaleLowerCase())
-        return matchesContinent && matchesName
+        return  matchesContinent && matchesName
     })
 
     return (
