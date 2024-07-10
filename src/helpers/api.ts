@@ -14,7 +14,7 @@ export const getCountryData = async () => {
 };
 
 export const getCountryDetail = async (name: string) => {
-    const url = `https://restcountries.com/v3.1/${name}`
+    const url = `https://restcountries.com/v3.1/name/${name}`
 
     try {
         const response = await axios.get(url)
