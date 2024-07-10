@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#E3F4F4',
-
     },
     listContainer: {
         width: 350,

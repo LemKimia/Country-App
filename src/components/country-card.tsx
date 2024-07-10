@@ -1,4 +1,5 @@
 import {View, Text, StyleSheet, Image, Pressable} from "react-native";
+import {Link} from 'expo-router'
 import {Country} from "../helpers/api-type";
 
 interface Props {
@@ -7,21 +8,23 @@ interface Props {
 
 const CountryCard = (props: Props) => {
     const {country} = props;
+    const params = country.name.common
 
     const handlePress = () => {
-        alert(`This is ${country.name.common}`)
+        alert(`You went to ${params}`)
     }
 
     return (
         <View style={style.countryContainer}>
-            <Pressable onPress={handlePress} style={style.countryImageContainer}>
-                <Image
-                    src={country.flags.png}
-                    alt={country.flags.alt}
-                    style={style.countryImage}
-
-                />
-            </Pressable>
+            <Link href={`/${params}`} asChild>
+                <Pressable onPress={handlePress} style={style.countryImageContainer}>
+                    <Image
+                        src={country.flags.png}
+                        alt={country.flags.alt}
+                        style={style.countryImage}
+                    />
+                </Pressable>
+            </Link>
             <Text numberOfLines={2} style={style.countryLabel}>{country.name.common}</Text>
         </View>
     )
