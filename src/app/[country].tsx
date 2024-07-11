@@ -1,3 +1,5 @@
+// noinspection JSIgnoredPromiseFromCall
+
 import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
 import {useEffect, useState} from "react";
 
@@ -11,28 +13,31 @@ const CountryDetail = () => {
     const {country} = useLocalSearchParams()
 
     useEffect(() => {
-        const getCountry = async () => {
-            try {
-                const response = await getCountryDetail(country)
+            const fetchCountryData = async () => {
+                try {
+                    const response = await getCountryDetail(country)
 
-                setCountryDetail(response)
-            } catch (error: any) {
-                alert(error.message)
+                    setCountryDetail(response)
+                } catch (error: any) {
+                    alert(error.message)
+                }
             }
-        }
-        getCountry()
-    }, [])
+            fetchCountryData()
+        },
+        [country])
 
     const handlePress = () => {
+
         countryDetail && countryDetail.length > 0
-            ? alert(`You are in ${countryDetail[0].name.common} officially known as ${countryDetail[0].name.official}`)
-            : alert(`You are in ${country}`)
+            ? alert(`The Country ${countryDetail[0].name.common} is officially known as ${countryDetail[0].name.official}`)
+            : alert(`Routes to ${country} are long and wide`)
     }
 
+    // noinspection com.intellij.reactbuddy.ArrayToJSXMapInspection
     return (
         <View style={styles.container}>
             {countryDetail && countryDetail.length > 0 ? (
-                <View>
+                <View style={styles.innerContainer}>
                     <Image
                         src={countryDetail[0].flags.png}
                         alt={countryDetail[0].flags.alt}
@@ -60,6 +65,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#E3F4F4',
         gap: 10
+    },
+    innerContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     countryImage: {
         width: 200,
