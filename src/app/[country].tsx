@@ -1,7 +1,7 @@
 import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
 import {useEffect, useState} from "react";
 
-import {useLocalSearchParams, Link} from 'expo-router'
+import {useLocalSearchParams} from 'expo-router'
 import { getCountryDetail} from "../helpers/api";
 import {Country} from "../helpers/api-type";
 
@@ -24,19 +24,29 @@ const CountryDetail = () => {
     }, [])
 
     const handlePress = () => {
-       alert(`You are in ${countryDetail[0].name.common} officially known as ${countryDetail[0].name.official}`)
+        countryDetail && countryDetail.length > 0
+            ? alert(`You are in ${countryDetail[0].name.common} officially known as ${countryDetail[0].name.official}`)
+            : alert(`You are in ${country}`)
     }
 
     return (
         <View style={styles.container}>
-            <Image
-                src={countryDetail[0].flags.png}
-                alt={countryDetail[0].flags.alt}
-                style={styles.countryImage}
-            />
-            <Pressable onPress={handlePress}>
-                <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
-            </Pressable>
+            {countryDetail && countryDetail.length > 0 ? (
+                <View>
+                    <Image
+                        src={countryDetail[0].flags.png}
+                        alt={countryDetail[0].flags.alt}
+                        style={styles.countryImage}
+                    />
+                    <Pressable onPress={handlePress}>
+                        <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
+                    </Pressable>
+                </View>
+            ) : (
+                <Pressable onPress={handlePress}>
+                    <Text style={styles.countryText}>We're still on our way to {country}</Text>
+                </Pressable>
+            )}
         </View>
     )
 }
