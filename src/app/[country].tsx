@@ -24,7 +24,7 @@ const CountryDetail = () => {
     }, [])
 
     const handlePress = () => {
-       alert(`You are in ${countryDetail[0].capital}`)
+       alert(`You are in ${countryDetail[0].name.common} officially known as ${countryDetail[0].name.official}`)
     }
 
     return (
@@ -35,7 +35,7 @@ const CountryDetail = () => {
                 style={styles.countryImage}
             />
             <Pressable onPress={handlePress}>
-                <Text>You are in {countryDetail[0].name.common}</Text>
+                <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
             </Pressable>
         </View>
     )
@@ -49,9 +49,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#E3F4F4',
+        gap: 10
     },
     countryImage: {
         width: 200,
-        height: 100
+        height: 120
     },
+    countryText: {
+        fontSize: 20,
+    }
 })
