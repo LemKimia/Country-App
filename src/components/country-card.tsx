@@ -10,14 +10,10 @@ const CountryCard = (props: Props) => {
     const {country} = props;
     const params = country.name.common
 
-    const handlePress = () => {
-        alert(`You goes to ${params}`)
-    }
-
     return (
         <View style={style.countryContainer}>
             <Link href={`/${params}`} asChild>
-                <Pressable onPress={handlePress} style={style.countryImageContainer}>
+                <Pressable style={style.countryImageContainer}>
                     <Image
                         src={country.flags.png}
                         alt={country.flags.alt}
