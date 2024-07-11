@@ -19,7 +19,7 @@ export default function Homepage() {
     const buttonLabel = showList ? "Show Country" : resetLabel
 
     useEffect(() => {
-        const getCountry = async () => {
+        const fetchCountryData = async () => {
             try {
                 const response = await getCountryData()
                 setData(response)
@@ -27,7 +27,8 @@ export default function Homepage() {
                 alert(error.message)
             }
         }
-        getCountry()
+        // noinspection JSIgnoredPromiseFromCall
+        fetchCountryData()
     }, [])
 
     const handlePress = async () => {
