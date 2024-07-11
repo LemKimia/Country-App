@@ -1,16 +1,14 @@
 import {StatusBar} from 'expo-status-bar';
 import {useEffect, useState} from "react";
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, Text} from 'react-native';
 
 import Button from "../components/button";
 import CountryCard from "../components/country-card";
 import CustomListHeaderComponent from "../components/custom-list-header-component";
 
-import {getCountryData} from "../helpers/api";
-import {Country} from "../helpers/api-type";
+import useCountryStore from "../store/store";
 
 export default function Homepage() {
-    const [data, setData] = useState<Country[]>([])
     const [showList, setShowList] = useState(true)
     const [keywordForName, setKeywordForName] = useState('')
     const [keywordForContinent, setKeywordForContinent] = useState('')
@@ -18,18 +16,11 @@ export default function Homepage() {
     const resetLabel = keywordForContinent || keywordForName ? "Reset List" : "Close List"
     const buttonLabel = showList ? "Show Country" : resetLabel
 
+    const {countryStateData, fetchCountry} = useCountryStore((state) => state)
+
     useEffect(() => {
-        const fetchCountryData = async () => {
-            try {
-                const response = await getCountryData()
-                setData(response)
-            } catch (error: any) {
-                alert(error.message)
-            }
-        }
-        // noinspection JSIgnoredPromiseFromCall
-        fetchCountryData()
-    }, [])
+        fetchCountry()
+    }, []);
 
     const handlePress = async () => {
         if (keywordForName || keywordForContinent) {
@@ -40,13 +31,21 @@ export default function Homepage() {
         }
     }
 
-    const filteredCountryData = data.filter(country => {
+    const filteredCountryData = countryStateData.filter(country => {
         const matchesContinent = keywordForContinent === "" ||
             country.continents.toString().toLocaleLowerCase().includes(keywordForContinent.toLocaleLowerCase());
         const matchesName = keywordForName === "" ||
             country.name.common.toString().toLocaleLowerCase().includes(keywordForName.toLocaleLowerCase())
         return matchesContinent && matchesName
     })
+
+    if (countryStateData.length < 1) {
+        return (
+            <View style={styles.container}>
+                <Text>Something is wrong ;-;</Text>
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>

@@ -3,18 +3,18 @@ import {getCountryData} from "../helpers/api";
 import {Country} from "../helpers/api-type";
 
 interface CountryStore {
-    countryData: Country[],
+    countryStateData: Country[],
     error: null
     fetchCountry: () => Promise<void>,
 }
 
 const useCountryStore = create<CountryStore>((set) => ({
-    countryData: [],
+    countryStateData: [],
     error: null,
     fetchCountry: async () => {
         try {
             const response = await getCountryData()
-            set({countryData: response, error: null})
+            set({countryStateData: response, error: null})
         } catch (error: any) {
             set({error: error.message})
         }
