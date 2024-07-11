@@ -1,22 +1,15 @@
 import {View, Text, TextInput, StyleSheet} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown'
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import useCountryStore from "../store/store";
 
-interface Props {
-    keywordForName: string
-    keywordForContinent: string
-    setKeywordForName: (text: string) => void;
-    setKeywordForContinent: (text: string) => void;
-}
-
-const CustomListHeaderComponent = (props: Props) => {
-    const {keywordForName, keywordForContinent, setKeywordForName, setKeywordForContinent} = props
+const CustomListHeaderComponent = () => {
+    const {keywordForName, setKeywordForName, setKeywordForContinent} = useCountryStore((state) => state)
     const countryContinentOptions = [
         'Africa',
         'Antarctica',
         'asia',
         'Europe',
-        'n orth america',
+        'north america',
         'Oceania',
         'South America'
     ]
@@ -47,7 +40,7 @@ const CustomListHeaderComponent = (props: Props) => {
                     onSelect={(selectedItem) => {
                         setKeywordForContinent(selectedItem)
                     }}
-                    renderButton={(selectedItem, isOpen) => {
+                    renderButton={(selectedItem) => {
                         return (
                             <View>
                                 <Text
@@ -55,7 +48,7 @@ const CustomListHeaderComponent = (props: Props) => {
                             </View>
                         )
                     }}
-                    renderItem={(item, index, isSelected) => {
+                    renderItem={(item) => {
                         return (
                             <View style={style.categoryContainer}>
                                 <Text style={style.categoryLabel}>{item}</Text>

@@ -9,14 +9,18 @@ import CustomListHeaderComponent from "../components/custom-list-header-componen
 import useCountryStore from "../store/store";
 
 export default function Homepage() {
+    const {
+        countryStateData,
+        fetchCountry, keywordForContinent,
+        keywordForName,
+        setKeywordForContinent,
+        setKeywordForName
+    } = useCountryStore((state) => state)
+
     const [showList, setShowList] = useState(true)
-    const [keywordForName, setKeywordForName] = useState('')
-    const [keywordForContinent, setKeywordForContinent] = useState('')
-
     const resetLabel = keywordForContinent || keywordForName ? "Reset List" : "Close List"
-    const buttonLabel = showList ? "Show Country" : resetLabel
 
-    const {countryStateData, fetchCountry} = useCountryStore((state) => state)
+    const buttonLabel = showList ? "Show Country" : resetLabel
 
     useEffect(() => {
         fetchCountry()
@@ -51,12 +55,7 @@ export default function Homepage() {
         <View style={styles.container}>
             <Button handlePress={handlePress} buttonLabel={buttonLabel}/>
             {!showList &&
-                <CustomListHeaderComponent
-                    keywordForName={keywordForName}
-                    keywordForContinent={keywordForContinent}
-                    setKeywordForName={setKeywordForName}
-                    setKeywordForContinent={setKeywordForContinent}
-                />}
+                <CustomListHeaderComponent/>}
             <View style={showList ? {height: "auto"} : styles.listContainer}>
                 {!showList && (
                     <FlatList

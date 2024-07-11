@@ -6,6 +6,10 @@ interface CountryStore {
     countryStateData: Country[],
     error: null
     fetchCountry: () => Promise<void>,
+    keywordForName: string,
+    keywordForContinent: string,
+    setKeywordForName: (selectedItem: string) => void,
+    setKeywordForContinent: (selectedItem: string) => void,
 }
 
 const useCountryStore = create<CountryStore>((set) => ({
@@ -19,6 +23,14 @@ const useCountryStore = create<CountryStore>((set) => ({
             set({error: error.message})
         }
     },
+    keywordForName: '',
+    keywordForContinent: '',
+    setKeywordForName: (selectedItem) => {
+        set(({keywordForName: selectedItem}))
+    },
+    setKeywordForContinent: (selectedItem) => {
+        set(({keywordForContinent: selectedItem}))
+    }
 }))
 
 export default useCountryStore;
