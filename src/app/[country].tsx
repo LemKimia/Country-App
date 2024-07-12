@@ -6,14 +6,20 @@ import {useEffect, useState} from "react";
 import {useLocalSearchParams} from 'expo-router'
 import { getCountryDetail} from "../helpers/api";
 import {Country} from "../helpers/api-type";
+import useCountryStore from "../store/store";
 
 const CountryDetail = () => {
     const [countryDetail, setCountryDetail] = useState<Country[]>([])
 
+    const {favouriteCountry, setFavouriteCountry} = useCountryStore((state) => state)
+
     const {country} = useLocalSearchParams()
 
     const favouriteButton = () => {
-        alert(`You make ${countryDetail[0].name.common} as your favorite`)
+        setFavouriteCountry(countryDetail[0].name.common)
+        if (favouriteCountry === countryDetail[0].name.common) {
+            alert(`You make ${favouriteCountry} as your favorite`)
+        }
     }
 
     useEffect(() => {
@@ -87,9 +93,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     favouriteButton: {
+        width: 120,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: "center",
         borderWidth: 2,
-        borderColor: 'white',
-
+        borderRadius: 18,
+        borderColor: "#C4DFDF",
+        backgroundColor: "#D2E9E9",
     },
     favouriteText: {
         fontSize: 20,
