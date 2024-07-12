@@ -11,16 +11,29 @@ import useCountryStore from "../store/store";
 const CountryDetail = () => {
     const [countryDetail, setCountryDetail] = useState<Country[]>([])
 
-    const {favouriteCountry, setFavouriteCountry} = useCountryStore((state) => state)
+    const {favouriteCountry, addFavouriteCountry, removeFavouriteCountry} = useCountryStore((state) => state)
 
     const {country} = useLocalSearchParams()
 
+    const isFavourite = countryDetail.length > 0
+     ? favouriteCountry.includes(countryDetail[0].name.common)
+        : null
+
     const favouriteButton = () => {
-        setFavouriteCountry(countryDetail[0].name.common)
-        if (favouriteCountry === countryDetail[0].name.common) {
-            alert(`You make ${favouriteCountry} as your favorite`)
+        if (isFavourite === null) {
+            alert("Please wait")
+        } else if (isFavourite) {
+            removeFavouriteCountry(countryDetail[0].name.common)
+            alert(`You removed ${countryDetail[0].name.common} from your favourite country list`)
+        } else {
+            addFavouriteCountry(countryDetail[0].name.common)
+            alert(`You make ${countryDetail[0].name.common} as your favorite`)
         }
     }
+    useEffect(() => {
+        console.log(favouriteCountry)
+    }, [favouriteCountry]);
+
 
     useEffect(() => {
             const fetchCountryData = async () => {
@@ -36,8 +49,7 @@ const CountryDetail = () => {
         },
         [country])
 
-    const handlePress = () => {
-
+    const countryNameDetailPopup = () => {
         countryDetail && countryDetail.length > 0
             ? alert(`The Country ${countryDetail[0].name.common} is officially known as ${countryDetail[0].name.official}`)
             : alert(`Routes to ${country} are long and wide`)
@@ -53,7 +65,7 @@ const CountryDetail = () => {
                         alt={countryDetail[0].flags.alt}
                         style={styles.countryImage}
                     />
-                    <Pressable onPress={handlePress}>
+                    <Pressable onPress={countryNameDetailPopup}>
                         <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
                     </Pressable>
                     <Pressable onPress={favouriteButton} style={styles.favouriteButton}>
@@ -61,7 +73,7 @@ const CountryDetail = () => {
                     </Pressable>
                 </View>
             ) : (
-                <Pressable onPress={handlePress}>
+                <Pressable onPress={countryNameDetailPopup}>
                     <Text style={styles.countryText}>We're still on our way to {country}</Text>
                 </Pressable>
             )}

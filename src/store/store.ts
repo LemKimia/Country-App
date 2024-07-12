@@ -10,8 +10,9 @@ interface CountryStore {
     keywordForContinent: string,
     setKeywordForName: (selectedItem: string) => void,
     setKeywordForContinent: (selectedItem: string) => void,
-    favouriteCountry: string,
-    setFavouriteCountry: (selectedItem: string) => void,
+    favouriteCountry: string[],
+    addFavouriteCountry: (selectedItem: string) => void,
+    removeFavouriteCountry: (selectedItem: string) => void,
 }
 
 const useCountryStore = create<CountryStore>((set) => ({
@@ -33,10 +34,17 @@ const useCountryStore = create<CountryStore>((set) => ({
     setKeywordForContinent: (selectedItem) => {
         set(({keywordForContinent: selectedItem}))
     },
-    favouriteCountry: '',
-    setFavouriteCountry: (selectedItem) => {
-        set(({favouriteCountry: selectedItem}))
-    }
+    favouriteCountry: [],
+    addFavouriteCountry: (selectedItem) => {
+        set((state) => ({
+            favouriteCountry: [...state.favouriteCountry, selectedItem]
+        }))
+    },
+    removeFavouriteCountry: (selectedItem) => {
+        set((state) => ({
+            favouriteCountry: state.favouriteCountry.filter(favourite => favourite !== selectedItem)
+        }))
+    },
 }))
 
 export default useCountryStore;
