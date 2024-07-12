@@ -21,9 +21,10 @@ interface CountryStore {
 const useCountryStore = create<CountryStore>((set) => ({
     countryStateData: [],
     countryStateDetails: [],
-    loading: true,
+    loading: false,
     error: null,
     fetchCountry: async () => {
+        set({loading: true})
         try {
             const response = await getCountryData()
             set({countryStateData: response, error: null})
@@ -34,6 +35,7 @@ const useCountryStore = create<CountryStore>((set) => ({
         }
     },
     fetchCountryDetail: async (country: string| string[] | undefined) => {
+        set({loading: true})
         try {
             const response = await getCountryDetail(country)
             set({countryStateDetails: response, error: null})
