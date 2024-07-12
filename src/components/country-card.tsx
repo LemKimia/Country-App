@@ -8,11 +8,10 @@ interface Props {
 
 const CountryCard = (props: Props) => {
     const {country} = props;
-    const params = country.name.common
 
     return (
         <View style={style.countryContainer}>
-            <Link href={`/${params}`} asChild>
+            <Link href={`/${country.name.common}`} asChild>
                 <Pressable style={style.countryImageContainer}>
                     <Image
                         src={country.flags.png}

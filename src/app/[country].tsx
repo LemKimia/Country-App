@@ -12,6 +12,10 @@ const CountryDetail = () => {
 
     const {country} = useLocalSearchParams()
 
+    const favouriteButton = () => {
+        alert(`You make ${countryDetail[0].name.common} as your favorite`)
+    }
+
     useEffect(() => {
             const fetchCountryData = async () => {
                 try {
@@ -46,6 +50,9 @@ const CountryDetail = () => {
                     <Pressable onPress={handlePress}>
                         <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
                     </Pressable>
+                    <Pressable onPress={favouriteButton} style={styles.favouriteButton}>
+                        <Text style={styles.favouriteText}>Favourite</Text>
+                    </Pressable>
                 </View>
             ) : (
                 <Pressable onPress={handlePress}>
@@ -70,12 +77,21 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+        gap: 10
     },
     countryImage: {
         width: 200,
         height: 120
     },
     countryText: {
+        fontSize: 20,
+    },
+    favouriteButton: {
+        borderWidth: 2,
+        borderColor: 'white',
+
+    },
+    favouriteText: {
         fontSize: 20,
     }
 })
