@@ -7,7 +7,6 @@ import {useLocalSearchParams} from 'expo-router'
 import useCountryStore from "../store/store";
 
 const CountryDetail = () => {
-
     const {
         countryStateDetails,
         fetchCountryDetail,

@@ -8,7 +8,7 @@ import CustomListHeaderComponent from "../components/custom-list-header-componen
 
 import useCountryStore from "../store/store";
 
-export default function Homepage() {
+const Homepage = () => {
     const {
         countryStateData,
         fetchCountry,
@@ -74,6 +74,8 @@ export default function Homepage() {
         </View>
     );
 }
+
+export default Homepage
 
 const styles = StyleSheet.create({
     container: {
