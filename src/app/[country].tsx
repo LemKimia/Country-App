@@ -18,6 +18,10 @@ const CountryDetail = () => {
 
     const {country} = useLocalSearchParams()
 
+    useEffect(() => {
+        fetchCountryDetail(country)
+    }, [country])
+
     const isFavourite = countryStateDetails.length > 0
      ? favouriteCountry.includes(countryStateDetails[0].name.common)
         : null
@@ -25,7 +29,6 @@ const CountryDetail = () => {
     const favouriteLabel = !isFavourite
         ? "Add as Favourite"
         : "Remove from Favourites"
-
     const favouriteButton = () => {
         if (isFavourite === null) {
             alert("Please wait")
@@ -36,11 +39,8 @@ const CountryDetail = () => {
             addFavouriteCountry(countryStateDetails[0].name.common)
             alert(`You make ${countryStateDetails[0].name.common} as your favorite`)
         }
-    }
 
-    useEffect(() => {
-            fetchCountryDetail(country)
-        }, [country])
+    }
 
     const countryNameDetailPopup = () => {
         countryStateDetails && countryStateDetails.length > 0
