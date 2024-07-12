@@ -1,3 +1,4 @@
+import React, {memo} from "react";
 import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import {Link} from 'expo-router'
 import {Country} from "../helpers/api-type";
@@ -25,7 +26,7 @@ const CountryCard = (props: Props) => {
     )
 }
 
-export default CountryCard;
+export default memo(CountryCard);
 
 const style = StyleSheet.create({
     countryContainer: {

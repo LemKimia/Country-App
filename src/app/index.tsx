@@ -1,12 +1,12 @@
 import {StatusBar} from 'expo-status-bar';
 import {useEffect, useState} from "react";
-import {StyleSheet, View, FlatList, Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 import Button from "../components/button";
-import CountryCard from "../components/country-card";
 import CustomListHeaderComponent from "../components/custom-list-header-component";
 
 import useCountryStore from "../store/store";
+import CustomFlatlist from "../components/custom-flatlist";
 
 const Homepage = () => {
     const {
@@ -19,15 +19,15 @@ const Homepage = () => {
     } = useCountryStore((state) => state)
 
     const [showList, setShowList] = useState(true)
-    const resetLabel = keywordForContinent || keywordForName ? "Reset List" : "Close List"
 
+    const resetLabel = keywordForContinent || keywordForName ? "Reset List" : "Close List"
     const buttonLabel = showList ? "Show Country" : resetLabel
 
     useEffect(() => {
         fetchCountry()
     }, []);
 
-    const handlePress = async () => {
+    const showListButtonPress = () => {
         if (keywordForName || keywordForContinent) {
             setKeywordForName("")
             setKeywordForContinent("")
@@ -35,14 +35,6 @@ const Homepage = () => {
             setShowList((prevState) => !prevState)
         }
     }
-
-    const filteredCountryData = countryStateData.filter(country => {
-        const matchesContinent = keywordForContinent === "" ||
-            country.continents.toString().toLocaleLowerCase().includes(keywordForContinent.toLocaleLowerCase());
-        const matchesName = keywordForName === "" ||
-            country.name.common.toString().toLocaleLowerCase().includes(keywordForName.toLocaleLowerCase())
-        return matchesContinent && matchesName
-    })
 
     if (countryStateData.length < 1) {
         return (
@@ -54,20 +46,12 @@ const Homepage = () => {
 
     return (
         <View style={styles.container}>
-            <Button handlePress={handlePress} buttonLabel={buttonLabel}/>
+            <Button handlePress={showListButtonPress} buttonLabel={buttonLabel}/>
             {!showList &&
                 <CustomListHeaderComponent/>}
             <View style={showList ? {height: "auto"} : styles.listContainer}>
                 {!showList && (
-                    <FlatList
-                        data={filteredCountryData}
-                        renderItem={({item}) => (
-                            <CountryCard country={item}/>
-                        )}
-                        keyExtractor={(item) => item.name.common}
-                        key={2}
-                        numColumns={2}
-                    />
+                    <CustomFlatlist />
                 )}
             </View>
             <StatusBar style="auto"/>
