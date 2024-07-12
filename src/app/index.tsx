@@ -11,7 +11,8 @@ import useCountryStore from "../store/store";
 export default function Homepage() {
     const {
         countryStateData,
-        fetchCountry, keywordForContinent,
+        fetchCountry,
+        keywordForContinent,
         keywordForName,
         setKeywordForContinent,
         setKeywordForName
