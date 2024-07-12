@@ -1,75 +1,76 @@
 // noinspection JSIgnoredPromiseFromCall
 
 import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
-import { getCountryDetail} from "../helpers/api";
-import {Country} from "../helpers/api-type";
 import useCountryStore from "../store/store";
 
 const CountryDetail = () => {
-    const [countryDetail, setCountryDetail] = useState<Country[]>([])
 
-    const {favouriteCountry, addFavouriteCountry, removeFavouriteCountry} = useCountryStore((state) => state)
+    const {
+        countryStateDetails,
+        fetchCountryDetail,
+        favouriteCountry,
+        addFavouriteCountry,
+        removeFavouriteCountry
+    } = useCountryStore((state) => state)
 
     const {country} = useLocalSearchParams()
 
-    const isFavourite = countryDetail.length > 0
-     ? favouriteCountry.includes(countryDetail[0].name.common)
+    const isFavourite = countryStateDetails.length > 0
+     ? favouriteCountry.includes(countryStateDetails[0].name.common)
         : null
+
+    const favouriteLabel = !isFavourite
+        ? "Add as Favourite"
+        : "Remove from Favourites"
 
     const favouriteButton = () => {
         if (isFavourite === null) {
             alert("Please wait")
         } else if (isFavourite) {
-            removeFavouriteCountry(countryDetail[0].name.common)
-            alert(`You removed ${countryDetail[0].name.common} from your favourite country list`)
+            removeFavouriteCountry(countryStateDetails[0].name.common)
+            alert(`You removed ${countryStateDetails[0].name.common} from your favourite country list`)
         } else {
-            addFavouriteCountry(countryDetail[0].name.common)
-            alert(`You make ${countryDetail[0].name.common} as your favorite`)
+            addFavouriteCountry(countryStateDetails[0].name.common)
+            alert(`You make ${countryStateDetails[0].name.common} as your favorite`)
         }
     }
-    useEffect(() => {
-        console.log(favouriteCountry)
-    }, [favouriteCountry]);
-
 
     useEffect(() => {
-            const fetchCountryData = async () => {
-                try {
-                    const response = await getCountryDetail(country)
-
-                    setCountryDetail(response)
-                } catch (error: any) {
-                    alert(error.message)
-                }
-            }
-            fetchCountryData()
-        },
-        [country])
+            fetchCountryDetail(country)
+        }, [country])
 
     const countryNameDetailPopup = () => {
-        countryDetail && countryDetail.length > 0
-            ? alert(`The Country ${countryDetail[0].name.common} is officially known as ${countryDetail[0].name.official}`)
+        countryStateDetails && countryStateDetails.length > 0
+            ? alert(`The Country ${countryStateDetails[0].name.common} is officially known as ${countryStateDetails[0].name.official}`)
             : alert(`Routes to ${country} are long and wide`)
+    }
+
+    if (countryStateDetails[0].name.common !== country) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.loadingText}>Loading . . .</Text>
+            </View>
+        )
     }
 
     // noinspection com.intellij.reactbuddy.ArrayToJSXMapInspection
     return (
         <View style={styles.container}>
-            {countryDetail && countryDetail.length > 0 ? (
+            {countryStateDetails && countryStateDetails.length > 0 ? (
                 <View style={styles.innerContainer}>
                     <Image
-                        src={countryDetail[0].flags.png}
-                        alt={countryDetail[0].flags.alt}
+                        src={countryStateDetails[0].flags.png}
+                        alt={countryStateDetails[0].flags.alt}
                         style={styles.countryImage}
                     />
                     <Pressable onPress={countryNameDetailPopup}>
-                        <Text style={styles.countryText}>You are in {countryDetail[0].name.common}</Text>
+                        <Text style={styles.countryText}>You are in {countryStateDetails[0].name.common}</Text>
                     </Pressable>
                     <Pressable onPress={favouriteButton} style={styles.favouriteButton}>
-                        <Text style={styles.favouriteText}>Favourite</Text>
+                        <Text style={styles.favouriteText}>{favouriteLabel}</Text>
                     </Pressable>
                 </View>
             ) : (
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     favouriteButton: {
-        width: 120,
+        width: 250,
         height: 40,
         justifyContent: 'center',
         alignItems: "center",
@@ -116,5 +117,8 @@ const styles = StyleSheet.create({
     },
     favouriteText: {
         fontSize: 20,
+    },
+    loadingText: {
+        fontSize: 50,
     }
 })

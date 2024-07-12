@@ -1,11 +1,14 @@
 import {create} from "zustand";
-import {getCountryData} from "../helpers/api";
+import {getCountryData, getCountryDetail} from "../helpers/api";
 import {Country} from "../helpers/api-type";
 
 interface CountryStore {
     countryStateData: Country[],
+    countryStateDetails: Country[],
     error: null
+    loading: boolean,
     fetchCountry: () => Promise<void>,
+    fetchCountryDetail: (country: string | string[] | undefined) => Promise<void>
     keywordForName: string,
     keywordForContinent: string,
     setKeywordForName: (selectedItem: string) => void,
@@ -17,6 +20,8 @@ interface CountryStore {
 
 const useCountryStore = create<CountryStore>((set) => ({
     countryStateData: [],
+    countryStateDetails: [],
+    loading: true,
     error: null,
     fetchCountry: async () => {
         try {
@@ -24,6 +29,18 @@ const useCountryStore = create<CountryStore>((set) => ({
             set({countryStateData: response, error: null})
         } catch (error: any) {
             set({error: error.message})
+        } finally {
+            set({loading: false})
+        }
+    },
+    fetchCountryDetail: async (country: string| string[] | undefined) => {
+        try {
+            const response = await getCountryDetail(country)
+            set({countryStateDetails: response, error: null})
+        } catch (error: any) {
+            set({error: error.message})
+        } finally {
+            set({loading: false})
         }
     },
     keywordForName: '',
