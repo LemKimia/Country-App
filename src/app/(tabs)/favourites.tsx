@@ -7,7 +7,7 @@ const FavouriteCountry = () => {
 
     const renderItem: ListRenderItem<Favourite> = (item) => {
         return (
-            <View>
+            <View style={styles.countryContainer}>
                 <Image
                     src={item.item.flags}
                     style={styles.countryImage}
@@ -23,6 +23,8 @@ const FavouriteCountry = () => {
                 <FlatList
                     data={favouriteCountry}
                     renderItem={renderItem}
+                    key={2}
+                    numColumns={2}
                 />
             </View>
         </View>
@@ -37,13 +39,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#E3F4F4',
+        padding: 10
     },
     listContainer: {
-        width: 350,
-        height: "70%"
+        width: "100%",
+        height: "100%"
+    },
+    countryContainer: {
+        width: 200,
+        height: 160,
+        marginHorizontal: 5,
+        marginVertical: 10,
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: "center",
+        borderWidth: 2,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
+        backgroundColor: '#F8F6F4',
     },
     countryImage: {
-        width: 200,
+        width: "100%",
         height: 120
     },
 })

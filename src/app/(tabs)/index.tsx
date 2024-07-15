@@ -54,7 +54,6 @@ const Homepage = () => {
                     <CustomFlatlist />
                 )}
             </View>
-
             <StatusBar style="auto"/>
         </View>
     );
