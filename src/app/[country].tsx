@@ -16,22 +16,22 @@ const CountryDetail = () => {
         removeFavouriteCountry
     } = useCountryStore((state) => state)
 
-    const {country} = useLocalSearchParams() as {country : string}
+    const {country} = useLocalSearchParams() as { country: string }
 
     useEffect(() => {
         fetchCountryDetail(country)
     }, [])
 
-    const isFavourite = countryStateDetails.length > 1
-     ? favouriteCountry.includes(countryStateDetails[0].name.common)
+    const isFavourite = countryStateDetails.length > 0
+        ? favouriteCountry.includes(countryStateDetails[0].name.common)
         : null
 
-    const favouriteLabel = !isFavourite
-        ? "Add as Favourite"
-        : "Remove from Favourites"
+    const favouriteLabel = isFavourite
+        ? "Remove from Favourites"
+        : "Add as Favourite"
 
     const favouriteButton = () => {
-        if (isFavourite === undefined) {
+        if (isFavourite === null) {
             alert("Please wait")
         } else if (isFavourite) {
             removeFavouriteCountry(countryStateDetails[0].name.common)
@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
         gap: 10
     },
     innerContainer: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
         gap: 10
     },
     countryImage: {
