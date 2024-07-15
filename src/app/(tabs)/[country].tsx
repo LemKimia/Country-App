@@ -20,7 +20,7 @@ const CountryDetail = () => {
 
     useEffect(() => {
         fetchCountryDetail(country)
-    }, [])
+    }, [country])
 
     const isFavourite = countryStateDetails.length > 0
         ? favouriteCountry.some(fav => fav.name === countryStateDetails[0].name.common)
