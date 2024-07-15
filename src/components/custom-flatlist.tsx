@@ -29,8 +29,8 @@ const CustomFlatlist = () => {
             keyExtractor={keyExtractor}
             key={2}
             numColumns={2}
-            initialNumToRender={10}
-            maxToRenderPerBatch={10}
+            initialNumToRender={5}
+            maxToRenderPerBatch={5}
             windowSize={20}
             updateCellsBatchingPeriod={50}
             removeClippedSubviews={true}

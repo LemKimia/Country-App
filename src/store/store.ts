@@ -8,7 +8,7 @@ interface CountryStore {
     error: null
     loading: boolean,
     fetchCountry: () => Promise<void>,
-    fetchCountryDetail: (country: string | string[] | undefined) => Promise<void>
+    fetchCountryDetail: (country: string) => Promise<void>,
     keywordForName: string,
     keywordForContinent: string,
     setKeywordForName: (selectedItem: string) => void,
@@ -34,7 +34,7 @@ const useCountryStore = create<CountryStore>((set) => ({
             set({loading: false})
         }
     },
-    fetchCountryDetail: async (country: string| string[] | undefined) => {
+    fetchCountryDetail: async (country: string) => {
         set({loading: true})
         try {
             const response = await getCountryDetail(country)
