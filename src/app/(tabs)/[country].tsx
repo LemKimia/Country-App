@@ -4,7 +4,7 @@ import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
 import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
-import useCountryStore from "../store/store";
+import useCountryStore from "../../store/store";
 
 const CountryDetail = () => {
     const {

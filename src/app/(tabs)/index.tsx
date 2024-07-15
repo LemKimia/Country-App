@@ -2,11 +2,11 @@ import {StatusBar} from 'expo-status-bar';
 import {useEffect, useState} from "react";
 import {StyleSheet, View, Text} from 'react-native';
 
-import Button from "../components/button";
-import CustomListHeaderComponent from "../components/custom-list-header-component";
+import Button from "../../components/button";
+import CustomListHeaderComponent from "../../components/custom-list-header-component";
+import CustomFlatlist from "../../components/custom-flatlist";
 
-import useCountryStore from "../store/store";
-import CustomFlatlist from "../components/custom-flatlist";
+import useCountryStore from "../../store/store";
 
 const Homepage = () => {
     const {
@@ -54,6 +54,7 @@ const Homepage = () => {
                     <CustomFlatlist />
                 )}
             </View>
+
             <StatusBar style="auto"/>
         </View>
     );

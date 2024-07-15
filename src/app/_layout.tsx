@@ -1,5 +1,8 @@
-import { Stack } from 'expo-router';
+import {Stack} from 'expo-router';
+import Homepage from "./(tabs)";
 
 export default function Layout() {
-    return <Stack />;
+    return <Stack>
+        <Stack.Screen name={'(tabs)'} options={{headerShown: false}}/>
+    </Stack>;
 }
