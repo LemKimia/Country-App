@@ -1,6 +1,6 @@
 import {create} from "zustand";
 import {getCountryData, getCountryDetail} from "../helpers/api";
-import {Country} from "../helpers/api-type";
+import {Country, Favourite} from "../helpers/api-type";
 
 interface CountryStore {
     countryStateData: Country[],
@@ -13,8 +13,8 @@ interface CountryStore {
     keywordForContinent: string,
     setKeywordForName: (selectedItem: string) => void,
     setKeywordForContinent: (selectedItem: string) => void,
-    favouriteCountry: string[],
-    addFavouriteCountry: (selectedItem: string) => void,
+    favouriteCountry: Favourite[],
+    addFavouriteCountry: (name: string, flag: string) => void,
     removeFavouriteCountry: (selectedItem: string) => void,
 }
 
@@ -54,14 +54,14 @@ const useCountryStore = create<CountryStore>((set) => ({
         set(({keywordForContinent: selectedItem}))
     },
     favouriteCountry: [],
-    addFavouriteCountry: (selectedItem) => {
+    addFavouriteCountry: (name: string, flags: string) => {
         set((state) => ({
-            favouriteCountry: [...state.favouriteCountry, selectedItem]
+            favouriteCountry: [...state.favouriteCountry, {name, flags}],
         }))
     },
     removeFavouriteCountry: (selectedItem) => {
         set((state) => ({
-            favouriteCountry: state.favouriteCountry.filter(favourite => favourite !== selectedItem)
+            favouriteCountry: state.favouriteCountry.filter(favourite => favourite.name !== selectedItem)
         }))
     },
 }))

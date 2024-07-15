@@ -23,7 +23,7 @@ const CountryDetail = () => {
     }, [])
 
     const isFavourite = countryStateDetails.length > 0
-        ? favouriteCountry.includes(countryStateDetails[0].name.common)
+        ? favouriteCountry.some(fav => fav.name === countryStateDetails[0].name.common)
         : null
 
     const favouriteLabel = isFavourite
@@ -37,7 +37,7 @@ const CountryDetail = () => {
             removeFavouriteCountry(countryStateDetails[0].name.common)
             alert(`You removed ${countryStateDetails[0].name.common} from your favourite country list`)
         } else {
-            addFavouriteCountry(countryStateDetails[0].name.common)
+            addFavouriteCountry(countryStateDetails[0].name.common, countryStateDetails[0].flags.png)
             alert(`You make ${countryStateDetails[0].name.common} as your favorite`)
         }
 
@@ -68,7 +68,7 @@ const CountryDetail = () => {
     if (countryStateDetails[0].name.common !== country) {
         return (
             <View style={styles.container}>
-                <Text style={styles.loadingText}>Loading . . .</Text>
+                <Text style={styles.loadingText}>Please Wait</Text>
             </View>
         )
     }

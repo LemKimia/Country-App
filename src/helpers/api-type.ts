@@ -16,3 +16,8 @@ export interface Country {
     region: string;
     subregion: string;
 }
+
+export interface Favourite {
+    flags: string,
+    name: string
+}
