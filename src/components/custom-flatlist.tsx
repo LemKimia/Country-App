@@ -1,7 +1,7 @@
-import {FlatList, ListRenderItem} from 'react-native'
+import {FlatList, ListRenderItem, RefreshControl} from 'react-native'
 import CountryCard from "./country-card";
 import useCountryStore from "../store/store";
-import {useCallback} from "react";
+import React, {useCallback} from "react";
 import {Country} from "../helpers/api-type";
 
 const CustomFlatlist = () => {
@@ -10,6 +10,8 @@ const CustomFlatlist = () => {
         keywordForContinent,
         keywordForName
     } = useCountryStore((state) => state);
+
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const filteredCountryData = countryStateData.filter(country => {
         const matchesContinent = keywordForContinent === "" ||
@@ -21,6 +23,13 @@ const CustomFlatlist = () => {
 
     const renderItem: ListRenderItem<Country> = useCallback(({item}) => <CountryCard country={item}/>, [])
     const keyExtractor = useCallback((item: Country) => item.name.common, [])
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 2000);
+    }, [setRefreshing]);
 
     return (
         <FlatList
@@ -35,6 +44,9 @@ const CustomFlatlist = () => {
             updateCellsBatchingPeriod={50}
             removeClippedSubviews={true}
             onEndReachedThreshold={0.5}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
         />
     )
 }
