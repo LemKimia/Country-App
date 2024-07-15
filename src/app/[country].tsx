@@ -10,26 +10,28 @@ const CountryDetail = () => {
     const {
         countryStateDetails,
         fetchCountryDetail,
+        loading,
         favouriteCountry,
         addFavouriteCountry,
         removeFavouriteCountry
     } = useCountryStore((state) => state)
 
-    const {country} = useLocalSearchParams()
+    const {country} = useLocalSearchParams() as {country : string}
 
     useEffect(() => {
         fetchCountryDetail(country)
-    }, [country])
+    }, [])
 
-    const isFavourite = countryStateDetails.length > 0
+    const isFavourite = countryStateDetails.length > 1
      ? favouriteCountry.includes(countryStateDetails[0].name.common)
         : null
 
     const favouriteLabel = !isFavourite
         ? "Add as Favourite"
         : "Remove from Favourites"
+
     const favouriteButton = () => {
-        if (isFavourite === null) {
+        if (isFavourite === undefined) {
             alert("Please wait")
         } else if (isFavourite) {
             removeFavouriteCountry(countryStateDetails[0].name.common)
@@ -42,9 +44,25 @@ const CountryDetail = () => {
     }
 
     const countryNameDetailPopup = () => {
-        countryStateDetails && countryStateDetails.length > 0
+        countryStateDetails && countryStateDetails.length > 1
             ? alert(`The Country ${countryStateDetails[0].name.common} is officially known as ${countryStateDetails[0].name.official}`)
             : alert(`Routes to ${country} are long and wide`)
+    }
+
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.loadingText}>Loading . . .</Text>
+            </View>
+        )
+    }
+
+    if (!countryStateDetails || countryStateDetails.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.loadingText}>ERROR</Text>
+            </View>
+        )
     }
 
     if (countryStateDetails[0].name.common !== country) {
