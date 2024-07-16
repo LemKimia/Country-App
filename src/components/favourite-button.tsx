@@ -14,8 +14,8 @@ const FavouriteButton = () => {
         : null
 
     const favouriteLabel = isFavourite
-        ? "Remove from Favourites"
-        : "Add as Favourite"
+        ? "Unsave"
+        : "Save"
 
     const handlePress = () => {
         if (isFavourite === null) {
@@ -30,8 +30,8 @@ const FavouriteButton = () => {
     }
 
     return (
-        <Pressable onPress={handlePress} style={styles.favouriteButton}>
-            <Text style={styles.favouriteText}>{favouriteLabel}</Text>
+        <Pressable onPress={handlePress} style={!isFavourite ? styles.saveButton : [styles.saveButton, {backgroundColor: "red"}]}>
+            <Text style={!isFavourite ? styles.saveText : [styles.saveText, {color: '#ffffff'}]}>{favouriteLabel}</Text>
         </Pressable>
     )
 }
@@ -39,17 +39,18 @@ const FavouriteButton = () => {
 export default FavouriteButton
 
 const styles = StyleSheet.create({
-    favouriteButton: {
-        width: 250,
-        height: 40,
+    saveButton: {
+        width: 80,
+        height: 30,
         justifyContent: 'center',
         alignItems: "center",
-        borderWidth: 2,
-        borderRadius: 18,
-        borderColor: "#C4DFDF",
-        backgroundColor: "#D2E9E9",
+        borderRadius: 10,
+        backgroundColor: "#aafcb8",
     },
-    favouriteText: {
-        fontSize: 20,
+    saveText: {
+        fontSize: 15,
+        fontWeight: "bold",
+        alignItems: "center",
+        color: "#285943",
     },
 })
