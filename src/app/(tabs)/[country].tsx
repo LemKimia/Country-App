@@ -1,11 +1,12 @@
 // noinspection JSIgnoredPromiseFromCall
 
-import {View, Text, Pressable, StyleSheet, Image} from 'react-native';
+import {View, Text, Pressable, StyleSheet, Image, ScrollView} from 'react-native';
 import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
 import useCountryStore from "../../store/store";
 import FavouriteButton from "../../components/favourite-button";
+import SectionHeaderText from "../../components/section-header-text";
 
 const CountryDetail = () => {
     const {
@@ -53,63 +54,91 @@ const CountryDetail = () => {
 
     // noinspection com.intellij.reactbuddy.ArrayToJSXMapInspection
     return (
-        <View style={styles.container}>
-            {countryStateDetails && countryStateDetails.length > 0 ? (
-                <View style={styles.innerContainer}>
+        <ScrollView style={styles.outerContainer}>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Pressable onPress={countryNameDetailPopup}>
+                        <Text style={styles.countryText}>{countryStateDetails[0].name.common}</Text>
+                    </Pressable>
                     <Image
                         src={countryStateDetails[0].flags.png}
                         alt={countryStateDetails[0].flags.alt}
                         style={styles.countryImage}
                     />
-                    <Pressable onPress={countryNameDetailPopup}>
-                        <Text style={styles.countryText}>You are in {countryStateDetails[0].name.common}</Text>
-                    </Pressable>
-                    <FavouriteButton />
+                    <FavouriteButton/>
                 </View>
-            ) : (
-                <Pressable onPress={countryNameDetailPopup}>
-                    <Text style={styles.countryText}>We're still on our way to {country}</Text>
-                </Pressable>
-            )}
-        </View>
+                <View style={styles.informationContainer}>
+                    <SectionHeaderText>Basic Information</SectionHeaderText>
+                    <Text>Official Name : {countryStateDetails[0].name.official}</Text>
+                    <Text>Region : {countryStateDetails[0].region}</Text>
+                    <Text>Capital : {countryStateDetails[0].capital}</Text>
+                    <Text>Population : {countryStateDetails[0].population}</Text>
+                    <Text>Area : {countryStateDetails[0].area}. km2</Text>
+                </View>
+                <View style={styles.informationContainer}>
+                    <SectionHeaderText>Code and Symbol</SectionHeaderText>
+                    <Text>Top-Level Domain : {countryStateDetails[0].tld}</Text>
+                    <Text>Currency : {Object.entries(countryStateDetails[0].currencies).map(
+                        ([currencyCode, currency]) => (
+                            <Text key={currencyCode}>{`${currency.name} (${currency.symbol})`}</Text>
+                        )
+                    )}</Text>
+                </View>
+                <View style={styles.informationContainer}>
+                    <SectionHeaderText>Language</SectionHeaderText>
+                    <Text>Official Language : {Object.entries(countryStateDetails[0].languages).map(
+                        ([languageKey, language]) => (
+                            <Text key={languageKey}>{language}</Text>
+                        )
+                    )}</Text>
+                </View>
+                <View style={styles.informationContainer}>
+                    <SectionHeaderText>Geographical Information</SectionHeaderText>
+                    <Text>Coordinates : {countryStateDetails[0].latlng}</Text>
+                    <Text>Timezone : {countryStateDetails[0].timezones}</Text>
+                </View>
+                <View style={styles.informationContainer}>
+                    <SectionHeaderText>Maps</SectionHeaderText>
+                    <Text>Maps : {countryStateDetails[0].maps.googleMaps}</Text>
+                </View>
+
+            </View>
+        </ScrollView>
     )
 }
 
 export default CountryDetail;
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        backgroundColor: '#E3F4F4',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#E3F4F4',
-        gap: 10
+        gap: 10,
+        marginVertical: 10
     },
-    innerContainer: {
+    headerContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         gap: 10
+    },
+    informationContainer: {
+        width: '75%',
+        flex: 1,
+        justifyContent: "center",
+        gap: 10,
+        marginVertical: 10
     },
     countryImage: {
         width: 200,
         height: 120
     },
     countryText: {
-        fontSize: 20,
-    },
-    favouriteButton: {
-        width: 250,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: "center",
-        borderWidth: 2,
-        borderRadius: 18,
-        borderColor: "#C4DFDF",
-        backgroundColor: "#D2E9E9",
-    },
-    favouriteText: {
-        fontSize: 20,
+        fontSize: 30,
     },
     loadingText: {
         fontSize: 50,
