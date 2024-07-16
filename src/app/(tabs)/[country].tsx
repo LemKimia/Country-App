@@ -5,15 +5,13 @@ import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
 import useCountryStore from "../../store/store";
+import FavouriteButton from "../../components/favourite-button";
 
 const CountryDetail = () => {
     const {
         countryStateDetails,
         fetchCountryDetail,
         loading,
-        favouriteCountry,
-        addFavouriteCountry,
-        removeFavouriteCountry
     } = useCountryStore((state) => state)
 
     const {country} = useLocalSearchParams() as { country: string }
@@ -22,33 +20,13 @@ const CountryDetail = () => {
         fetchCountryDetail(country)
     }, [country])
 
-    const isFavourite = countryStateDetails.length > 0
-        ? favouriteCountry.some(fav => fav.name === countryStateDetails[0].name.common)
-        : null
-
-    const favouriteLabel = isFavourite
-        ? "Remove from Favourites"
-        : "Add as Favourite"
-
-    const favouriteButton = () => {
-        if (isFavourite === null) {
-            alert("Please wait")
-        } else if (isFavourite) {
-            removeFavouriteCountry(countryStateDetails[0].name.common)
-            alert(`You removed ${countryStateDetails[0].name.common} from your favourite country list`)
-        } else {
-            addFavouriteCountry(countryStateDetails[0].name.common, countryStateDetails[0].flags.png)
-            alert(`You make ${countryStateDetails[0].name.common} as your favorite`)
-        }
-
-    }
-
     const countryNameDetailPopup = () => {
         countryStateDetails && countryStateDetails.length > 1
             ? alert(`The Country ${countryStateDetails[0].name.common} is officially known as ${countryStateDetails[0].name.official}`)
             : alert(`Routes to ${country} are long and wide`)
     }
 
+    // Conditional component rendering to check for loading state and error
     if (loading) {
         return (
             <View style={styles.container}>
@@ -86,9 +64,7 @@ const CountryDetail = () => {
                     <Pressable onPress={countryNameDetailPopup}>
                         <Text style={styles.countryText}>You are in {countryStateDetails[0].name.common}</Text>
                     </Pressable>
-                    <Pressable onPress={favouriteButton} style={styles.favouriteButton}>
-                        <Text style={styles.favouriteText}>{favouriteLabel}</Text>
-                    </Pressable>
+                    <FavouriteButton />
                 </View>
             ) : (
                 <Pressable onPress={countryNameDetailPopup}>
