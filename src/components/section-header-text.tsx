@@ -23,5 +23,7 @@ const styles = StyleSheet.create({
     },
     sectionText: {
         fontSize: 20,
+        fontWeight: "bold",
+        color: '#285943'
     }
 })
