@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#aafcb8",
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        elevation: 3
     },
     buttonLabel: {
-        color: 'black',
-        fontSize: 10,
-        fontWeight: '500'
+        color: '#285943',
+        fontSize: 13
     },
 })

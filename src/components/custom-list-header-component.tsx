@@ -27,14 +27,14 @@ const CustomListHeaderComponent = () => {
         return (
             <View>
                 <Text
-                    style={keywordForContinent ? {opacity: 1} : style.selectedItem}>{renderButtonLabel(selectedItem)}</Text>
+                    style={!keywordForContinent ? {opacity: 0.4} : style.selectedItem}>{renderButtonLabel(selectedItem)}</Text>
             </View>
         )
     }
 
     const renderItem = (item: string) => {
         return (
-            <View style={style.categoryContainer}>
+            <View style={style.categoryMenu}>
                 <Text style={style.categoryLabel}>{item}</Text>
             </View>
         )
@@ -54,6 +54,7 @@ const CustomListHeaderComponent = () => {
                     onChangeText={setKeywordForName}
                     placeholder={'Search'}
                     value={keywordForName}
+                    style={{ color: '#285943'}}
                 />
             </View>
             <View style={style.dropdownContainer}>
@@ -64,6 +65,7 @@ const CustomListHeaderComponent = () => {
                     }}
                     renderButton={renderButton}
                     renderItem={renderItem}
+                    dropdownStyle={style.dropdownMenuStyle}
                 />
             </View>
             {(keywordForContinent || keywordForName) && (
@@ -81,34 +83,44 @@ const style = StyleSheet.create({
         alignContent: 'space-between',
         flexDirection: "row",
         gap: 10,
+        marginBottom: 10
     },
     textInputContainer: {
         justifyContent: 'center',
         alignItems: "center",
         width: 100,
         padding: 2,
-        borderRadius: 8,
-        backgroundColor: "#aafcb8",
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        elevation: 3
     },
     dropdownContainer: {
         justifyContent: "center",
         alignItems: 'center',
         width: 100,
         padding: 2,
-        borderRadius: 8,
-        backgroundColor: "#aafcb8",
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        elevation: 3
     },
-    categoryContainer: {
-        flex: 1,
-        justifyContent: "center"
+    dropdownMenuStyle: {
+        width: 100,
+        borderRadius: 5,
+        backgroundColor: "#fff",
+    },
+    categoryMenu: {
+        justifyContent: "center",
     },
     categoryLabel: {
-        fontWeight: "normal",
+        fontSize: 18,
+        fontWeight: "600",
+        marginVertical: 3,
         paddingTop: 3,
         paddingBottom: 3,
         paddingLeft: 3,
     },
     selectedItem: {
-        opacity: 0.4
+        opacity: 1,
+        color: '#285943'
     }
 })

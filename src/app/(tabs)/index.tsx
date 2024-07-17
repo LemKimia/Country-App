@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#d7fff1',
     },
     listContainer: {
         width: 350,
-        height: "70%"
+        height: "85%"
     }
 });

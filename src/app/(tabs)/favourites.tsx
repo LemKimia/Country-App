@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#E3F4F4',
+        backgroundColor: '#d7fff1',
         padding: 10
     },
     listContainer: {

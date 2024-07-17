@@ -38,9 +38,11 @@ const style = StyleSheet.create({
         flexDirection: 'column',
         alignItems: "center",
         borderWidth: 2,
+        borderColor: '#285943',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         backgroundColor: '#fff',
+        elevation: 3
     },
     countryLabel: {
         fontSize: 20,
