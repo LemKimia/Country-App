@@ -10,6 +10,7 @@ const CustomListHeaderComponent = () => {
         setKeywordForName,
         setKeywordForContinent
     } = useCountryStore((state) => state)
+
     const countryContinentOptions = [
         'Africa',
         'Antarctica',
@@ -21,12 +22,12 @@ const CustomListHeaderComponent = () => {
     ]
 
     const renderButton = (selectedItem: string) => {
-        const renderButtonLabel = (selectedItem: string) => selectedItem || 'Category'
+        const renderButtonLabel = (selectedItem: string) => keywordForContinent ? selectedItem : 'Category'
 
         return (
             <View>
                 <Text
-                    style={selectedItem ? {opacity: 1} : style.selectedItem}>{renderButtonLabel(selectedItem)}</Text>
+                    style={keywordForContinent ? {opacity: 1} : style.selectedItem}>{renderButtonLabel(selectedItem)}</Text>
             </View>
         )
     }
@@ -65,7 +66,9 @@ const CustomListHeaderComponent = () => {
                     renderItem={renderItem}
                 />
             </View>
-            <Button handlePress={resetButton} buttonLabel={buttonLabel}/>
+            {(keywordForContinent || keywordForName) && (
+                <Button handlePress={resetButton} buttonLabel={buttonLabel}/>
+            )}
         </View>
     )
 }
