@@ -1,9 +1,9 @@
 import {View, FlatList, Text, StyleSheet, ListRenderItem, Image} from "react-native";
-import useCountryStore from "../../store/store";
-import {Favourite} from "../../helpers/api-type";
+import {Favourite} from "../../types/api-type";
+import useFavoriteStore from "../../store/favorite-store";
 
 const FavouriteCountry = () => {
-    const {favouriteCountry} = useCountryStore((state) => state)
+    const {favouriteCountry} = useFavoriteStore((state) => state)
 
     const renderItem: ListRenderItem<Favourite> = (item) => {
         return (

@@ -4,7 +4,7 @@ import {View, Text, Pressable, StyleSheet, Image, ScrollView} from 'react-native
 import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
-import useCountryStore from "../../store/store";
+import useCountryStore from "../../store/country-store";
 import SectionHeaderText from "../../components/section-header-text";
 import FavoriteModal from "../../components/fav-modal";
 import LabeledValue from "../../components/country-detail-label";

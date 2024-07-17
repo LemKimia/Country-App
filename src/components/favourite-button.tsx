@@ -1,13 +1,14 @@
 import {Pressable, Text, StyleSheet} from "react-native";
-import useCountryStore from "../store/store";
+import useCountryStore from "../store/country-store";
+import useFavoriteStore from "../store/favorite-store";
 
 const FavouriteButton = () => {
+    const {countryStateDetails} = useCountryStore((state) => state)
     const {
-        countryStateDetails,
         favouriteCountry,
         addFavouriteCountry,
         removeFavouriteCountry
-    } = useCountryStore((state) => state)
+    } = useFavoriteStore((state) => state)
 
     const isFavourite = countryStateDetails.length > 0
         ? favouriteCountry.some(fav => fav.name === countryStateDetails[0].name.common)

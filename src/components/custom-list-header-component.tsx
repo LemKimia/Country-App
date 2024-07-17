@@ -1,7 +1,7 @@
 import {View, Text, TextInput, StyleSheet} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown'
-import useCountryStore from "../store/store";
 import Button from "./button";
+import useKeywordStore from "../store/keyword-store";
 
 const CustomListHeaderComponent = () => {
     const {
@@ -9,7 +9,7 @@ const CustomListHeaderComponent = () => {
         keywordForContinent,
         setKeywordForName,
         setKeywordForContinent
-    } = useCountryStore((state) => state)
+    } = useKeywordStore((state) => state)
 
     const countryContinentOptions = [
         'Africa',

@@ -5,7 +5,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import CustomListHeaderComponent from "../../components/custom-list-header-component";
 import CustomFlatlist from "../../components/custom-flatlist";
 
-import useCountryStore from "../../store/store";
+import useCountryStore from "../../store/country-store";
 
 const Homepage = () => {
     const {countryStateData, fetchCountry} = useCountryStore((state) => state)

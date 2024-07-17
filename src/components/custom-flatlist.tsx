@@ -1,15 +1,16 @@
 import {FlatList, ListRenderItem, RefreshControl} from 'react-native'
 import CountryCard from "./country-card";
-import useCountryStore from "../store/store";
+import useCountryStore from "../store/country-store";
 import React, {useCallback} from "react";
-import {Country} from "../helpers/api-type";
+import {Country} from "../types/api-type";
+import useKeywordStore from "../store/keyword-store";
 
 const CustomFlatlist = () => {
+    const {countryStateData} = useCountryStore((state) => state);
     const {
-        countryStateData,
         keywordForContinent,
         keywordForName
-    } = useCountryStore((state) => state);
+    } = useKeywordStore((state) => state);
 
     const [refreshing, setRefreshing] = React.useState(false);
 

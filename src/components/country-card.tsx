@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import {View, Text, StyleSheet, Image, Pressable} from "react-native";
 import {Link} from 'expo-router'
-import {Country} from "../helpers/api-type";
+import {Country} from "../types/api-type";
 
 interface Props {
     country: Country
