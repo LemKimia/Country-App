@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Country} from "./api-type";
+import {Country} from "../types/api-type";
 
 export const getCountryData = async () => {
     const url = "https://restcountries.com/v3.1/all"
