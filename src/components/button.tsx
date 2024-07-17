@@ -10,7 +10,7 @@ export default function Button(props: Props) {
 
     return (
         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={handlePress}>
+            <Pressable onPress={handlePress}>
                 <Text style={styles.buttonLabel}>{buttonLabel}</Text>
             </Pressable>
         </View>
@@ -19,26 +19,15 @@ export default function Button(props: Props) {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        width: 320,
-        height: 68,
-        marginVertical: 10,
+        width: 70,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#D2E9E9",
-        borderWidth: 4,
-        borderColor: "#C4DFDF",
-        borderRadius: 18
-    },
-    button: {
-        borderRadius: 5,
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
+        backgroundColor: "#aafcb8",
     },
     buttonLabel: {
         color: 'black',
-        fontSize: 30,
+        fontSize: 10,
+        fontWeight: '500'
     },
 })

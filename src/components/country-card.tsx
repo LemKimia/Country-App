@@ -40,7 +40,7 @@ const style = StyleSheet.create({
         borderWidth: 2,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
-        backgroundColor: '#F8F6F4',
+        backgroundColor: '#fff',
     },
     countryLabel: {
         fontSize: 20,

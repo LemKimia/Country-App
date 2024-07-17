@@ -1,40 +1,18 @@
 import {StatusBar} from 'expo-status-bar';
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {StyleSheet, View, Text} from 'react-native';
 
-import Button from "../../components/button";
 import CustomListHeaderComponent from "../../components/custom-list-header-component";
 import CustomFlatlist from "../../components/custom-flatlist";
 
 import useCountryStore from "../../store/store";
 
 const Homepage = () => {
-    const {
-        countryStateData,
-        fetchCountry,
-        keywordForContinent,
-        keywordForName,
-        setKeywordForContinent,
-        setKeywordForName
-    } = useCountryStore((state) => state)
-
-    const [showList, setShowList] = useState(true)
-
-    const resetLabel = keywordForContinent || keywordForName ? "Reset List" : "Close List"
-    const buttonLabel = showList ? "Show Country" : resetLabel
+    const {countryStateData, fetchCountry} = useCountryStore((state) => state)
 
     useEffect(() => {
         fetchCountry()
     }, []);
-
-    const showListButtonPress = () => {
-        if (keywordForName || keywordForContinent) {
-            setKeywordForName("")
-            setKeywordForContinent("")
-        } else {
-            setShowList((prevState) => !prevState)
-        }
-    }
 
     if (countryStateData.length < 1) {
         return (
@@ -46,13 +24,9 @@ const Homepage = () => {
 
     return (
         <View style={styles.container}>
-            <Button handlePress={showListButtonPress} buttonLabel={buttonLabel}/>
-            {!showList &&
-                <CustomListHeaderComponent/>}
-            <View style={showList ? {height: "auto"} : styles.listContainer}>
-                {!showList && (
-                    <CustomFlatlist />
-                )}
+            <CustomListHeaderComponent/>
+            <View style={styles.listContainer}>
+                <CustomFlatlist />
             </View>
             <StatusBar style="auto"/>
         </View>
@@ -66,7 +40,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#E3F4F4',
+        backgroundColor: '#ffffff',
     },
     listContainer: {
         width: 350,

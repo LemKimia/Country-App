@@ -1,28 +1,49 @@
 import {View, Text, TextInput, StyleSheet} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown'
 import useCountryStore from "../store/store";
+import Button from "./button";
 
 const CustomListHeaderComponent = () => {
-    const {keywordForName, setKeywordForName, setKeywordForContinent} = useCountryStore((state) => state)
+    const {
+        keywordForName,
+        keywordForContinent,
+        setKeywordForName,
+        setKeywordForContinent
+    } = useCountryStore((state) => state)
     const countryContinentOptions = [
         'Africa',
         'Antarctica',
-        'asia',
+        'Asia',
         'Europe',
-        'north america',
+        'North America',
         'Oceania',
         'South America'
     ]
 
-    const selectedItemToUppercase = (selectedItem: string) => {
-        if (!selectedItem) {
-            return selectedItem
-        }
+    const renderButton = (selectedItem: string) => {
+        const renderButtonLabel = (selectedItem: string) => selectedItem || 'Category'
 
-        const firstAlphabetInPosition = selectedItem.charAt(0).toUpperCase()
-        const restOfAlphabet = selectedItem.slice(1).toLowerCase()
+        return (
+            <View>
+                <Text
+                    style={selectedItem ? {opacity: 1} : style.selectedItem}>{renderButtonLabel(selectedItem)}</Text>
+            </View>
+        )
+    }
 
-        return firstAlphabetInPosition + restOfAlphabet
+    const renderItem = (item: string) => {
+        return (
+            <View style={style.categoryContainer}>
+                <Text style={style.categoryLabel}>{item}</Text>
+            </View>
+        )
+    }
+
+    const buttonLabel = keywordForContinent || keywordForName ? "Reset List" : ''
+
+    const resetButton = () => {
+        setKeywordForName("")
+        setKeywordForContinent("")
     }
 
     return (
@@ -30,7 +51,7 @@ const CustomListHeaderComponent = () => {
             <View style={style.textInputContainer}>
                 <TextInput
                     onChangeText={setKeywordForName}
-                    placeholder={'Search by Common Name'}
+                    placeholder={'Search'}
                     value={keywordForName}
                 />
             </View>
@@ -40,23 +61,11 @@ const CustomListHeaderComponent = () => {
                     onSelect={(selectedItem) => {
                         setKeywordForContinent(selectedItem)
                     }}
-                    renderButton={(selectedItem) => {
-                        return (
-                            <View>
-                                <Text
-                                    style={selectedItem ? {opacity: 1} : style.selectedItem}>{selectedItemToUppercase(selectedItem) || 'Search by Continent'}</Text>
-                            </View>
-                        )
-                    }}
-                    renderItem={(item) => {
-                        return (
-                            <View style={style.categoryContainer}>
-                                <Text style={style.categoryLabel}>{item}</Text>
-                            </View>
-                        )
-                    }}
+                    renderButton={renderButton}
+                    renderItem={renderItem}
                 />
             </View>
+            <Button handlePress={resetButton} buttonLabel={buttonLabel}/>
         </View>
     )
 }
@@ -65,24 +74,26 @@ export default CustomListHeaderComponent
 
 const style = StyleSheet.create({
     container: {
-        flexDirection: "row"
+        justifyContent: 'space-between',
+        alignContent: 'space-between',
+        flexDirection: "row",
+        gap: 10,
     },
     textInputContainer: {
-        width: 175,
+        justifyContent: 'center',
+        alignItems: "center",
+        width: 100,
         padding: 2,
-        borderWidth: 2,
         borderRadius: 8,
-        borderColor: "#C4DFDF",
-        backgroundColor: "#D2E9E9",
+        backgroundColor: "#aafcb8",
     },
     dropdownContainer: {
         justifyContent: "center",
-        width: 150,
+        alignItems: 'center',
+        width: 100,
         padding: 2,
-        borderWidth: 2,
         borderRadius: 8,
-        borderColor: "#C4DFDF",
-        backgroundColor: "#D2E9E9",
+        backgroundColor: "#aafcb8",
     },
     categoryContainer: {
         flex: 1,
