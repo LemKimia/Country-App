@@ -5,8 +5,9 @@ import {useEffect} from "react";
 
 import {useLocalSearchParams} from 'expo-router'
 import useCountryStore from "../../store/store";
-import FavouriteButton from "../../components/favourite-button";
 import SectionHeaderText from "../../components/section-header-text";
+import FavoriteModal from "../../components/fav-modal";
+import LabeledValue from "../../components/country-detail-label";
 
 const CountryDetail = () => {
     const {
@@ -65,43 +66,47 @@ const CountryDetail = () => {
                         alt={countryStateDetails[0].flags.alt}
                         style={styles.countryImage}
                     />
-                    <FavouriteButton/>
+                    <FavoriteModal/>
                 </View>
                 <View style={styles.informationContainer}>
                     <SectionHeaderText>Basic Information</SectionHeaderText>
-                    <Text>Official Name : {countryStateDetails[0].name.official}</Text>
-                    <Text>Region : {countryStateDetails[0].region}</Text>
-                    <Text>Capital : {countryStateDetails[0].capital}</Text>
-                    <Text>Population : {countryStateDetails[0].population}</Text>
-                    <Text>Area : {countryStateDetails[0].area}. km2</Text>
+                    <LabeledValue label={'Official Name :'} value={countryStateDetails[0].name.official}/>
+                    <LabeledValue label={'Region :'} value={countryStateDetails[0].region}/>
+                    <LabeledValue label={'Capital :'} value={countryStateDetails[0].capital}/>
+                    <LabeledValue label={'Population :'} value={countryStateDetails[0].population}/>
+                    <LabeledValue label={'Area :'} value={countryStateDetails[0].area}/>
                 </View>
                 <View style={styles.informationContainer}>
                     <SectionHeaderText>Code and Symbol</SectionHeaderText>
-                    <Text>Top-Level Domain : {countryStateDetails[0].tld}</Text>
-                    <Text>Currency : {Object.entries(countryStateDetails[0].currencies).map(
+                    <LabeledValue label={'Top-Level Domain :'} value={countryStateDetails[0].tld}/>
+                    <Text style={{fontWeight: '500'}}>Currency : </Text>
+                    {Object.entries(countryStateDetails[0].currencies).map(
                         ([currencyCode, currency]) => (
-                            <Text key={currencyCode}>{`${currency.name} (${currency.symbol})`}</Text>
+                            <Text style={{marginLeft: 20}} key={currencyCode}>{`${currency.name} (${currency.symbol})`}</Text>
                         )
-                    )}</Text>
+                    )}
                 </View>
                 <View style={styles.informationContainer}>
                     <SectionHeaderText>Language</SectionHeaderText>
-                    <Text>Official Language : {Object.entries(countryStateDetails[0].languages).map(
+                    <Text style={{fontWeight: '500'}}>Official Language : </Text>
+                    {Object.entries(countryStateDetails[0].languages).map(
                         ([languageKey, language]) => (
-                            <Text key={languageKey}>{language}</Text>
+                            <Text style={{marginLeft: 20}} key={languageKey}>{language}</Text>
                         )
-                    )}</Text>
+                    )}
                 </View>
                 <View style={styles.informationContainer}>
                     <SectionHeaderText>Geographical Information</SectionHeaderText>
-                    <Text>Coordinates : {countryStateDetails[0].latlng}</Text>
-                    <Text>Timezone : {countryStateDetails[0].timezones}</Text>
+                    <LabeledValue label={'Coordinates :'} value={countryStateDetails[0].latlng}/>
+                    <Text style={{fontWeight: '500'}}>Timezone : </Text>
+                    {countryStateDetails[0].timezones.map((timezone, index) => (
+                        <Text style={{marginLeft: 20}} key={index}>{timezone}</Text>
+                    ))}
                 </View>
                 <View style={styles.informationContainer}>
                     <SectionHeaderText>Maps</SectionHeaderText>
-                    <Text>Maps : {countryStateDetails[0].maps.googleMaps}</Text>
+                    <LabeledValue label={'Google Maps :'} value={countryStateDetails[0].maps.googleMaps}/>
                 </View>
-
             </View>
         </ScrollView>
     )
@@ -111,20 +116,22 @@ export default CountryDetail;
 
 const styles = StyleSheet.create({
     outerContainer: {
-        backgroundColor: '#E3F4F4',
+        backgroundColor: '#ffffff',
     },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         gap: 10,
-        marginVertical: 10
+        marginVertical: 10,
+        color: '#285943'
     },
     headerContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 10
+        gap: 10,
+        color: '#285943'
     },
     informationContainer: {
         width: '75%',
@@ -139,6 +146,8 @@ const styles = StyleSheet.create({
     },
     countryText: {
         fontSize: 30,
+        fontWeight: 'bold',
+        color: '#285943'
     },
     loadingText: {
         fontSize: 50,
