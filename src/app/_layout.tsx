@@ -1,5 +1,4 @@
 import {Stack} from 'expo-router';
-import Homepage from "./(tabs)";
 
 export default function Layout() {
     return <Stack>

@@ -1,5 +1,4 @@
 import {create} from "zustand";
-import KeywordStore from "./keyword-store";
 
 export interface KeywordStore {
     keywordForName: string,
