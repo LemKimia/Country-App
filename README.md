@@ -62,7 +62,6 @@
         <li><a href="#run-locally">Run Locally</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -145,7 +144,7 @@ The app uses the free public [API REST Countries](https://restcountries.com/) to
 <!-- CONTACT -->
 ## Contact
 
-Samuel Joel T - [My Email](samueljoel464@gmail.com)
+Samuel Joel T - [My Email](mailto:samueljoel464@gmail.com)
 
 Project Link: [https://github.com/LemKimia/Country-App](https://github.com/LemKimia/Country-App)
 
